@@ -12,12 +12,12 @@
             this.minTermList = minTermList;
         }
 
-        public Set<String> getMin(){
-            return minTermList.getMin();
+        public Set<String> getMinTermList(){
+            return minTermList.getMinTermList();
         }
 
-        public void setMinList(String x){
-            minTermList.setMinList(x);
+        public void setMinTermList(String userStringInputForMinTermValue){
+            minTermList.setMinTermList(userStringInputForMinTermValue);
         }
 
 

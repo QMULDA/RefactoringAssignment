@@ -5,17 +5,17 @@ import java.util.TreeSet;
 
 public class MinTermList {
 
-    static Set<String> set = new TreeSet<String>();
+    static Set<String> setOfStringsToBeConvertedToMinTerms = new TreeSet<String>();
 
-    public void setMinList(String x) {
+    public void setMinTermList(String userStringInputForMinTermValue) {
 
-        set.add(x);
+        setOfStringsToBeConvertedToMinTerms.add(userStringInputForMinTermValue);
 
     }
 
 
-    public static Set<String> getMin() {
-        return set;
+    public static Set<String> getMinTermList() {
+        return setOfStringsToBeConvertedToMinTerms;
     }
 
 }
