@@ -34,7 +34,7 @@ public class MenuBar extends JMenuBar {
 
 			public void actionPerformed(ActionEvent arg0) {
 
-				if(GUI.set!=null)GUI.set.clear();
+				if(GUI.setOfStringsToBeConvertedToMinTerms !=null)GUI.setOfStringsToBeConvertedToMinTerms.clear();
 				
 				String s = JOptionPane
 						.showInputDialog("Enter the boolean bits(3 to 5): ");
