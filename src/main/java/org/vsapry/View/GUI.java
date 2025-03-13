@@ -1,8 +1,10 @@
 package org.vsapry.View;
 
 
+import org.vsapry.Controller.MinTermListController;
 import org.vsapry.Model.MinTermList;
 import org.vsapry.Model.Quine;
+import org.vsapry.Controller.MinTermListController;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -33,14 +35,14 @@ public class GUI extends JFrame {
 	
 	private JTextArea resultShow;
 	private JButton calBt;
-	@SuppressWarnings("unused")
-	private int i = 0;
 
 	
 	static public int k=0;
 	static public Set<String> set;
 	public String temp; 
 	MinTermList item = new MinTermList();
+
+	private final MinTermListController controller;
 
 	static public String dataThree(String input) {
 
@@ -81,10 +83,11 @@ public class GUI extends JFrame {
 
 	}
 
-	public GUI() {
-		
-
+	public GUI(MinTermListController controller) {
 		super("Quine McCluskey Prime Implicant Generator");
+		this.controller = controller;
+		GUI gui = new GUI(controller);
+		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setLayout(null); 
 
@@ -101,6 +104,7 @@ public class GUI extends JFrame {
 		
 
 		minInput = new JLabel("Enter Minterm list: ");
+		//TODO change bounds to show full text
 		minInput.setBounds(50, 100, 150, 30);
 		minInput.setFont(new Font("Verdana", Font.BOLD, 14));
 		panel.add(minInput);
@@ -118,9 +122,6 @@ public class GUI extends JFrame {
 
 			@Override
 			public void keyReleased(KeyEvent arg0) {
-
-				@SuppressWarnings("unused")
-				int flag = 0;
 				int st = MenuBar.bits;
 
 				System.out.println(minIn.getText());
@@ -191,7 +192,7 @@ public class GUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				minIn.setText("");
-				item.setMinList(temp);
+				controller.setMinList(temp);
 
 				
 			}
@@ -214,9 +215,7 @@ public class GUI extends JFrame {
 				Quine quine = new Quine();
 
 				
-				set = MinTermList.getMin();
-				@SuppressWarnings("unused")
-				int len = set.size();
+				set = controller.getMin();
 				try {
 					Iterator<String> it = set.iterator();
 
@@ -287,10 +286,6 @@ public class GUI extends JFrame {
 					JOptionPane.ERROR_MESSAGE, null);
 
 		}
-
-		
-		GUI gui = new GUI();
-		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 
 	
 	}
