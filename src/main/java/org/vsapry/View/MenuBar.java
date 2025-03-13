@@ -7,20 +7,23 @@ import java.awt.event.KeyEvent;
 import javax.swing.*;
 
 public class MenuBar extends JMenuBar {
-
-	private static final long serialVersionUID = 1L;
-
 	public static int bits;
 
-	private String d1 = "Jane Smith";
-	private String d2 = "John Doe";
-	private String d3 = "Ashok Kumar";
-	private String objective = "The Quine McCluskey algorithm (or the method of prime implicants) "
-			+ "\nis a method used for minimization of boolean functions which was developed by W.V. "
-			+ "\nQuine and Edward J. McCluskey. It is functionally identical to Karnaugh mapping, "
-			+ "\nbut the tabular form makes it more efficient for use in computer algorithms, and"
-			+ "\nit also gives a deterministic way to check that the minimal form of a Boolean "
-			+ "\nfunction has been reached. It is sometimes referred to as the tabulation method.";
+	private String developer1 = "Jane Smith";
+	private String developer2 = "John Doe";
+	private String developer3 = "Ashok Kumar";
+	private String objective = """
+            The Quine McCluskey algorithm (or the method of prime implicants) \
+            
+            is a method used for minimization of boolean functions which was developed by W.V. \
+            
+            Quine and Edward J. McCluskey. It is functionally identical to Karnaugh mapping, \
+            
+            but the tabular form makes it more efficient for use in computer algorithms, and\
+            
+            it also gives a deterministic way to check that the minimal form of a Boolean \
+            
+            function has been reached. It is sometimes referred to as the tabulation method.""";
 
 	public MenuBar() {
 		JMenu fileMenu = new JMenu("File");
@@ -89,7 +92,7 @@ public class MenuBar extends JMenuBar {
 		jd1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				JOptionPane.showMessageDialog(null, d1,
+				JOptionPane.showMessageDialog(null, developer1,
 						"Quine McCluskey Prime Implicant Generator",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
@@ -99,7 +102,7 @@ public class MenuBar extends JMenuBar {
 		authors.add(jd2);
 		jd2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, d2,
+				JOptionPane.showMessageDialog(null, developer2,
 						"Quine McCluskey Prime Implicant Generator",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
@@ -109,7 +112,7 @@ public class MenuBar extends JMenuBar {
 		authors.add(jd3);
 		jd3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, d3,
+				JOptionPane.showMessageDialog(null, developer3,
 						"Quine McCluskey Prime Implicant Generator",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
