@@ -1,17 +1,18 @@
 package org.vsapry.View;
 
 
+import org.vsapry.Controller.MinTermFactoryController;
 import org.vsapry.Controller.MinTermListController;
+import org.vsapry.Controller.QuineController;
+import org.vsapry.Model.BitFactories.MinTermFactory;
 import org.vsapry.Model.MinTermList;
 import org.vsapry.Model.Quine;
-import org.vsapry.Controller.MinTermListController;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.swing.JButton;
@@ -34,12 +35,12 @@ public class GUI extends JFrame {
 	private JButton nextBt;
 	
 	private JTextArea resultShow;
-	private JButton calBt;
+	private JButton calculateButton;
 
 	
-	static public int k=0;
-	static public Set<String> set;
-	public String temp; 
+	static public int userIntegerInputForMinTermValue =0;
+	static public Set<String> setOfStringsToBeConvertedToMinTerms;
+	public String userStringInputForMinTermValue;
 	MinTermList item = new MinTermList();
 
 	private final MinTermListController controller;
@@ -83,9 +84,9 @@ public class GUI extends JFrame {
 
 	}
 
-	public GUI(MinTermListController controller) {
+	public GUI(MinTermListController minTermListController) {
 		super("Quine McCluskey Prime Implicant Generator");
-		this.controller = controller;
+		this.controller = minTermListController;
 
 		setLayout(null); 
 
@@ -120,55 +121,55 @@ public class GUI extends JFrame {
 
 			@Override
 			public void keyReleased(KeyEvent arg0) {
-				int st = MenuBar.bits;
+				int numberOfBits = MenuBar.bits;
 
 				System.out.println(minIn.getText());
 				String tmp = minIn.getText();
 
 				
-				if (st == 3) {
+				if (numberOfBits == 3) {
 					
 					try {
-						k = Integer.parseInt(tmp);
+						userIntegerInputForMinTermValue = Integer.parseInt(tmp);
 					} catch (NumberFormatException e) {
-						k = -1;
+						userIntegerInputForMinTermValue = -1;
 					}
 
-					if (k < 0 || k > 7) {
+					if (userIntegerInputForMinTermValue < 0 || userIntegerInputForMinTermValue > 7) {
 						JOptionPane.showMessageDialog(null, "Number should be within 0 to 7\nPlease press Next and give your input again",
 								"Error", JOptionPane.ERROR_MESSAGE, null);
 					} else
-						temp = minIn.getText();
+						userStringInputForMinTermValue = minIn.getText();
 				}
-				if (st == 4) {
+				if (numberOfBits == 4) {
 					
 					try {
-						k = Integer.parseInt(tmp);
+						userIntegerInputForMinTermValue = Integer.parseInt(tmp);
 					} catch (NumberFormatException e) {
-						k = -1;
+						userIntegerInputForMinTermValue = -1;
 					}
 
-					if (k < 0 || k > 15) {
+					if (userIntegerInputForMinTermValue < 0 || userIntegerInputForMinTermValue > 15) {
 						JOptionPane.showMessageDialog(null, "Number should be within 0 to 15\nPlease press Next and give your input again",
 								"Error", JOptionPane.ERROR_MESSAGE, null);
 					} else
-						temp = minIn.getText();
+						userStringInputForMinTermValue = minIn.getText();
 
 				}
 
-				if (st == 5) {
+				if (numberOfBits == 5) {
 					
 					try {
-						k = Integer.parseInt(tmp);
+						userIntegerInputForMinTermValue = Integer.parseInt(tmp);
 					} catch (NumberFormatException e) {
-						k = -1;
+						userIntegerInputForMinTermValue = -1;
 					}
 
-					if (k < 0 || k > 31) {
+					if (userIntegerInputForMinTermValue < 0 || userIntegerInputForMinTermValue > 31) {
 						JOptionPane.showMessageDialog(null, "Number should be within 0 to 31\nPlease press Next and give your input again",
 								"Error", JOptionPane.ERROR_MESSAGE, null);
 					} else
-						temp = minIn.getText();
+						userStringInputForMinTermValue = minIn.getText();
 
 				}
 
@@ -188,11 +189,8 @@ public class GUI extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
 				minIn.setText("");
-				controller.setMinList(temp);
-
-				
+				minTermListController.setMinTermList(userStringInputForMinTermValue);
 			}
 		});
 		panel.add(nextBt);
@@ -203,39 +201,33 @@ public class GUI extends JFrame {
 		resultShow.setEditable(false);
 		panel.add(resultShow);
 
-		calBt = new JButton("Calculate");
-		calBt.setBounds(400, 250, 100, 50);
-		calBt.addActionListener(new ActionListener() {
+		calculateButton = new JButton("Calculate");
+		calculateButton.setBounds(400, 250, 100, 50);
+		calculateButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
 				Quine quine = new Quine();
+				QuineController quineController = new QuineController(quine);
+				MinTermFactory minTermFactory = MinTermFactoryController.getFactory(MenuBar.bits);
 
-				
-				set = controller.getMin();
+				setOfStringsToBeConvertedToMinTerms = minTermListController.getMinTermList();
+
 				try {
-					Iterator<String> it = set.iterator();
 
-					while (it.hasNext() == true) {
-
-						String str = it.next();
-
-						if (MenuBar.bits == 3)
-							quine.addTerm(dataThree(str));
-						else if (MenuBar.bits == 4)
-							quine.addTerm(dataFour(str));
-						else if (MenuBar.bits == 5)
-							quine.addTerm(dataFive(str));
-
-						System.out.println(str);
+					for (String stringToBeConvertedToMinTerm : setOfStringsToBeConvertedToMinTerms) {
+						quineController.addTerm(
+								minTermFactory.createMinTerm(Integer.parseInt(stringToBeConvertedToMinTerm))
+										.toString()
+						);
+						System.out.println(stringToBeConvertedToMinTerm);
 					}
 
+					quineController.simplify();
+					String primeImplicant = quine.toString();
 					
-					quine.simplify();
-					String temp1 = quine.toString();
-					
-					resultShow.setText(temp1);
+					resultShow.setText(primeImplicant);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -243,7 +235,7 @@ public class GUI extends JFrame {
 
 			}
 		});
-		panel.add(calBt);
+		panel.add(calculateButton);
 
 		setVisible(true); 
 		add(panel);
@@ -254,7 +246,7 @@ public class GUI extends JFrame {
 
 		MinTermList mintermlist = new MinTermList();
 		MinTermListController controller = new MinTermListController(mintermlist);
-		
+
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
