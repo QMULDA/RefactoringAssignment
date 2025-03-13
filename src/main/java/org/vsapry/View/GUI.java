@@ -1,11 +1,11 @@
 package org.vsapry.View;
 
 
-import org.vsapry.Controller.MinTermFactoryController;
-import org.vsapry.Controller.MinTermListController;
+import org.vsapry.Controller.MintermFactoryController;
+import org.vsapry.Controller.MintermListController;
 import org.vsapry.Controller.QuineController;
-import org.vsapry.Model.BitFactories.MinTermFactory;
-import org.vsapry.Model.MinTermList;
+import org.vsapry.Model.BitFactories.MintermFactory;
+import org.vsapry.Model.MintermList;
 import org.vsapry.Model.Quine;
 
 import java.awt.Font;
@@ -26,83 +26,33 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 public class GUI extends JFrame {
-	private JPanel panel;
-	
-	private JLabel minInput;
-	private JTextField minIn;
-	private JButton nextBt;
-	
-	private JTextArea resultShow;
-	private JButton calculateButton;
 
-	
-	static public int userIntegerInputForMinTermValue =0;
-	static public Set<String> setOfStringsToBeConvertedToMinTerms;
-	public String userStringInputForMinTermValue;
-	MinTermList item = new MinTermList();
+    private JTextField minIn;
+    private JTextArea resultShow;
 
-	private final MinTermListController controller;
 
-	static public String dataThree(String input) {
+    static public int userIntegerInputForMintermValue =0;
+	static public Set<String> setOfStringsToBeConvertedToMinterms;
+	public String userStringInputForMintermValue;
 
-		
-		String bin[] = { "000", "001", "010", "011", "100", "101", "110", "111" };
 
-		int i = Integer.parseInt(input);
-
-	
-
-		return bin[i];
-
-	}
-
-	static public String dataFour(String input) {
-
-		String bin[] = { "0000", "0001", "0010", "0011", "0100", "0101",
-				"0110", "0111", "1000", "1001", "1010", "1011", "1100", "1101",
-				"1110", "1111" };
-
-		int i = Integer.parseInt(input);
-
-		return bin[i];
-
-	}
-
-	static public String dataFive(String input) {
-
-		String bin[] = { "00000", "00001", "00010", "00011", "00100", "00101",
-				"00110", "00111", "01000", "01001", "01010", "01011", "01100",
-				"01101", "01110", "01111", "10000", "10001", "10010", "10011",
-				"10100", "10101", "10110", "10111", "11000", "11001", "11010",
-				"11011", "11100", "11101", "11110", "11111" };
-
-		int i = Integer.parseInt(input);
-
-		return bin[i];
-
-	}
-
-	public GUI(MinTermListController minTermListController) {
+	public GUI(MintermListController minTermListController) {
 		super("Quine McCluskey Prime Implicant Generator");
-		this.controller = minTermListController;
 
-		setLayout(null); 
+        setLayout(null);
 
 		setSize(550, 500); 
 		setResizable(false);
-		panel = new JPanel(); 
+        JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 500, 500); 
 
 		panel.setLayout(null); 
 
 		MenuBar bar = new MenuBar();
 		setJMenuBar(bar);
-
 		
-
-		minInput = new JLabel("Enter Minterm list: ");
-		//TODO change bounds to show full text
-		minInput.setBounds(50, 100, 150, 30);
+        JLabel minInput = new JLabel("Enter Minterm list: ");
+		minInput.setBounds(50, 100, 200, 30);
 		minInput.setFont(new Font("Verdana", Font.BOLD, 14));
 		panel.add(minInput);
 
@@ -128,46 +78,46 @@ public class GUI extends JFrame {
 				if (numberOfBits == 3) {
 					
 					try {
-						userIntegerInputForMinTermValue = Integer.parseInt(tmp);
+						userIntegerInputForMintermValue = Integer.parseInt(tmp);
 					} catch (NumberFormatException e) {
-						userIntegerInputForMinTermValue = -1;
+						userIntegerInputForMintermValue = -1;
 					}
 
-					if (userIntegerInputForMinTermValue < 0 || userIntegerInputForMinTermValue > 7) {
+					if (userIntegerInputForMintermValue < 0 || userIntegerInputForMintermValue > 7) {
 						JOptionPane.showMessageDialog(null, "Number should be within 0 to 7\nPlease press Next and give your input again",
 								"Error", JOptionPane.ERROR_MESSAGE, null);
 					} else
-						userStringInputForMinTermValue = minIn.getText();
+						userStringInputForMintermValue = minIn.getText();
 				}
 				if (numberOfBits == 4) {
 					
 					try {
-						userIntegerInputForMinTermValue = Integer.parseInt(tmp);
+						userIntegerInputForMintermValue = Integer.parseInt(tmp);
 					} catch (NumberFormatException e) {
-						userIntegerInputForMinTermValue = -1;
+						userIntegerInputForMintermValue = -1;
 					}
 
-					if (userIntegerInputForMinTermValue < 0 || userIntegerInputForMinTermValue > 15) {
+					if (userIntegerInputForMintermValue < 0 || userIntegerInputForMintermValue > 15) {
 						JOptionPane.showMessageDialog(null, "Number should be within 0 to 15\nPlease press Next and give your input again",
 								"Error", JOptionPane.ERROR_MESSAGE, null);
 					} else
-						userStringInputForMinTermValue = minIn.getText();
+						userStringInputForMintermValue = minIn.getText();
 
 				}
 
 				if (numberOfBits == 5) {
 					
 					try {
-						userIntegerInputForMinTermValue = Integer.parseInt(tmp);
+						userIntegerInputForMintermValue = Integer.parseInt(tmp);
 					} catch (NumberFormatException e) {
-						userIntegerInputForMinTermValue = -1;
+						userIntegerInputForMintermValue = -1;
 					}
 
-					if (userIntegerInputForMinTermValue < 0 || userIntegerInputForMinTermValue > 31) {
+					if (userIntegerInputForMintermValue < 0 || userIntegerInputForMintermValue > 31) {
 						JOptionPane.showMessageDialog(null, "Number should be within 0 to 31\nPlease press Next and give your input again",
 								"Error", JOptionPane.ERROR_MESSAGE, null);
 					} else
-						userStringInputForMinTermValue = minIn.getText();
+						userStringInputForMintermValue = minIn.getText();
 
 				}
 
@@ -181,14 +131,14 @@ public class GUI extends JFrame {
 		});
 		panel.add(minIn);
 
-		nextBt = new JButton("Next");
+        JButton nextBt = new JButton("Next");
 		nextBt.setBounds(140, 140, 70, 30);
 		nextBt.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				minIn.setText("");
-				minTermListController.setMinTermList(userStringInputForMinTermValue);
+				minTermListController.setMintermList(userStringInputForMintermValue);
 			}
 		});
 		panel.add(nextBt);
@@ -199,7 +149,7 @@ public class GUI extends JFrame {
 		resultShow.setEditable(false);
 		panel.add(resultShow);
 
-		calculateButton = new JButton("Calculate");
+        JButton calculateButton = new JButton("Calculate");
 		calculateButton.setBounds(400, 250, 100, 50);
 		calculateButton.addActionListener(new ActionListener() {
 
@@ -208,23 +158,23 @@ public class GUI extends JFrame {
 
 				Quine quine = new Quine();
 				QuineController quineController = new QuineController(quine);
-				MinTermFactory minTermFactory = MinTermFactoryController.getFactory(MenuBar.bits);
+				MintermFactory minTermFactory = MintermFactoryController.getFactory(MenuBar.bits);
 
-				setOfStringsToBeConvertedToMinTerms = minTermListController.getMinTermList();
+				setOfStringsToBeConvertedToMinterms = minTermListController.getMintermList();
 
 				try {
 
-					for (String stringToBeConvertedToMinTerm : setOfStringsToBeConvertedToMinTerms) {
+					for (String stringToBeConvertedToMinterm : setOfStringsToBeConvertedToMinterms) {
 						quineController.addTerm(
-								minTermFactory.createMinTerm(Integer.parseInt(stringToBeConvertedToMinTerm))
+								minTermFactory.createMinterm(Integer.parseInt(stringToBeConvertedToMinterm))
 										.toString()
 						);
-						System.out.println(stringToBeConvertedToMinTerm);
+						System.out.println(stringToBeConvertedToMinterm);
 					}
 
 					quineController.simplify();
 					String primeImplicant = quineController.toString();
-					
+
 					resultShow.setText(primeImplicant);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -242,8 +192,8 @@ public class GUI extends JFrame {
 
 	public static void main(String[] args) {
 
-		MinTermList mintermlist = new MinTermList();
-		MinTermListController controller = new MinTermListController(mintermlist);
+		MintermList mintermlist = new MintermList();
+		MintermListController controller = new MintermListController(mintermlist);
 
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {

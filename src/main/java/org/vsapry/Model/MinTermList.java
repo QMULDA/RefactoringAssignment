@@ -3,19 +3,19 @@ package org.vsapry.Model;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class MinTermList {
+public class MintermList {
 
-    static Set<String> setOfStringsToBeConvertedToMinTerms = new TreeSet<String>();
+    static Set<String> setOfStringsToBeConvertedToMinterms = new TreeSet<String>();
 
-    public void setMinTermList(String userStringInputForMinTermValue) {
+    public void setMintermList(String userStringInputForMintermValue) {
 
-        setOfStringsToBeConvertedToMinTerms.add(userStringInputForMinTermValue);
+        setOfStringsToBeConvertedToMinterms.add(userStringInputForMintermValue);
 
     }
 
 
-    public static Set<String> getMinTermList() {
-        return setOfStringsToBeConvertedToMinTerms;
+    public static Set<String> getMintermList() {
+        return setOfStringsToBeConvertedToMinterms;
     }
 
 }

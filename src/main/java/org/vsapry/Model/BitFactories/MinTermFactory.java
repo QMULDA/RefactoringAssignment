@@ -1,7 +1,7 @@
 package org.vsapry.Model.BitFactories;
 
-import org.vsapry.Model.MinTerm;
+import org.vsapry.Model.Minterm;
 
-public interface MinTermFactory {
-    MinTerm createMinTerm(int numericValue);
+public interface MintermFactory {
+    Minterm createMinterm(int numericValue);
 }

@@ -1,23 +1,23 @@
     package org.vsapry.Controller;
 
-    import org.vsapry.Model.MinTermList;
+    import org.vsapry.Model.MintermList;
 
     import java.util.Set;
 
-    public class MinTermListController {
+    public class MintermListController {
 
-        private MinTermList minTermList;
+        private MintermList minTermList;
 
-        public MinTermListController(MinTermList minTermList) {
+        public MintermListController(MintermList minTermList) {
             this.minTermList = minTermList;
         }
 
-        public Set<String> getMinTermList(){
-            return minTermList.getMinTermList();
+        public Set<String> getMintermList(){
+            return minTermList.getMintermList();
         }
 
-        public void setMinTermList(String userStringInputForMinTermValue){
-            minTermList.setMinTermList(userStringInputForMinTermValue);
+        public void setMintermList(String userStringInputForMintermValue){
+            minTermList.setMintermList(userStringInputForMintermValue);
         }
 
 

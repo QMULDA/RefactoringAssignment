@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.vsapry.Model.MinTerm;
+import org.vsapry.Model.Minterm;
 import org.vsapry.Model.Quine;
 
 import javax.naming.LimitExceededException;
@@ -21,10 +21,10 @@ public class QuineTest {
         quine.addTerm("0");
         quine.addTerm("1");
 
-        assertEquals(2, quine.numMinTermsInTerm);
+        assertEquals(2, quine.numMintermsInTerm);
 
-        assertTrue(quine.hasTerm(new MinTerm("0")));
-        assertTrue(quine.hasTerm(new MinTerm("1")));
+        assertTrue(quine.hasTerm(new Minterm("0")));
+        assertTrue(quine.hasTerm(new Minterm("1")));
     }
 
     @Test
@@ -41,7 +41,7 @@ public class QuineTest {
         quine.addTerm("0");
         quine.addTerm("0");
 
-        assertEquals(2, quine.numMinTermsInTerm);
+        assertEquals(2, quine.numMintermsInTerm);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class QuineTest {
     void testHasTermWhenTermDoesNotExistReturnsFalse() throws LimitExceededException {
         quine.addTerm("0");
 
-        assertFalse(quine.hasTerm(new MinTerm("1")));
+        assertFalse(quine.hasTerm(new Minterm("1")));
     }
 
 
@@ -72,26 +72,26 @@ public class QuineTest {
 
         quine.simplify();
 
-        assertTrue(quine.numMinTermsInTerm > 0, "There should be at least one prime implicant");
-        assertTrue(quine.numMinTermsInTerm <= 4, "Some minterms should be combined, so count should be <= 4.");
+        assertTrue(quine.numMintermsInTerm > 0, "There should be at least one prime implicant");
+        assertTrue(quine.numMintermsInTerm <= 4, "Some minterms should be combined, so count should be <= 4.");
     }
 
     @Test
-    void testNoMergesInReduceFunctionWhenMinTermsDifferInMoreThan1Bit() throws LimitExceededException {
+    void testNoMergesInReduceFunctionWhenMintermsDifferInMoreThan1Bit() throws LimitExceededException {
         quine.addTerm("000");
         quine.addTerm("111");
 
         quine.simplify();
-        assertEquals(2, quine.numMinTermsInTerm);
+        assertEquals(2, quine.numMintermsInTerm);
     }
 
     @Test
-    void testReduceSingleMergeWhenMinTermsDifferBy1Bit() throws LimitExceededException {
+    void testReduceSingleMergeWhenMintermsDifferBy1Bit() throws LimitExceededException {
         quine.addTerm("000");
         quine.addTerm("001");
 
         quine.simplify();
-        assertEquals(1, quine.numMinTermsInTerm);
+        assertEquals(1, quine.numMintermsInTerm);
         assertTrue(quine.toString().contains("00_"));
     }
 
@@ -114,6 +114,6 @@ public class QuineTest {
         quine.addTerm("101");
 
         quine.simplify();
-        assertEquals(3, quine.numMinTermsInTerm);
+        assertEquals(3, quine.numMintermsInTerm);
     }
 }

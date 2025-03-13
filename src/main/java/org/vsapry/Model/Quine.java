@@ -4,25 +4,25 @@ import javax.naming.LimitExceededException;
 
 public class Quine {
 	protected static final int MAX_TERMS = 0xff;
-	public MinTerm[] terms = new MinTerm[MAX_TERMS];
-	public int numMinTermsInTerm = 0;
+	public Minterm[] terms = new Minterm[MAX_TERMS];
+	public int numMintermsInTerm = 0;
 
 	public void addTerm(String str) throws LimitExceededException {
-		if (numMinTermsInTerm == MAX_TERMS)
+		if (numMintermsInTerm == MAX_TERMS)
 			throw new LimitExceededException("Cannot have more than 255 Terms");
-		terms[numMinTermsInTerm++] = new MinTerm(str);
+		terms[numMintermsInTerm++] = new Minterm(str);
 	}
 
 	public String toString() {
 		StringBuilder minTermsBuffer = new StringBuilder();
-		for (int i = 0; i < numMinTermsInTerm; i++) {
+		for (int i = 0; i < numMintermsInTerm; i++) {
 			minTermsBuffer.append(terms[i]).append("\n");
 		}
 		return minTermsBuffer.toString();
 	}
 
-	public boolean hasTerm(MinTerm minTerm){
-		for (int i = 0; i < numMinTermsInTerm; i++) {
+	public boolean hasTerm(Minterm minTerm){
+		for (int i = 0; i < numMintermsInTerm; i++) {
 			if (minTerm.isSame(terms[i]))
 				return true;
 		}
@@ -38,12 +38,12 @@ public class Quine {
 
 	private int reduce() {
 		int numberOfReductions = 0;
-		MinTerm[] reducedTerms = new MinTerm[MAX_TERMS];
+		Minterm[] reducedTerms = new Minterm[MAX_TERMS];
 		boolean[] used = new boolean[MAX_TERMS];
-		for (int i = 0; i < numMinTermsInTerm; i++) {
-			for (int j = i + 1; j < numMinTermsInTerm; j++) {
-				if (terms[i].numberOfDifferencesBetweenMinTerms(terms[j]) == 1) {
-					reducedTerms[numberOfReductions++] = MinTerm.combine(terms[i], terms[j]);
+		for (int i = 0; i < numMintermsInTerm; i++) {
+			for (int j = i + 1; j < numMintermsInTerm; j++) {
+				if (terms[i].numberOfDifferencesBetweenMinterms(terms[j]) == 1) {
+					reducedTerms[numberOfReductions++] = Minterm.combine(terms[i], terms[j]);
 					used[i] = true;
 					used[j] = true;
 				}
@@ -51,17 +51,17 @@ public class Quine {
 		}
 
 		int totalReduced = numberOfReductions;
-		for (int i = 0; i < numMinTermsInTerm; i++) {
+		for (int i = 0; i < numMintermsInTerm; i++) {
 			if (!used[i]) {
 				reducedTerms[totalReduced++] = terms[i];
 			}
 		}
 
 
-		numMinTermsInTerm = 0;
+		numMintermsInTerm = 0;
 		for (int i = 0; i < totalReduced; i++) {
 			if (!hasTerm(reducedTerms[i]))
-				terms[numMinTermsInTerm++] = reducedTerms[i];
+				terms[numMintermsInTerm++] = reducedTerms[i];
 		}
 		return numberOfReductions;
 	}

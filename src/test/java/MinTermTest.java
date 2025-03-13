@@ -1,18 +1,18 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.vsapry.Model.MinTerm;
+import org.vsapry.Model.Minterm;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MinTermTest {
+public class MintermTest {
 
-    private MinTerm minTermA;
-    private MinTerm minTermB;
+    private Minterm minTermA;
+    private Minterm minTermB;
 
     @BeforeEach
     void setUp() {
-        minTermA = new MinTerm("0000");
-        minTermB = new MinTerm("1111");
+        minTermA = new Minterm("0000");
+        minTermB = new Minterm("1111");
     }
 
     @Test
@@ -23,7 +23,7 @@ public class MinTermTest {
 
     @Test
     void testIsSameTrue() {
-        MinTerm anotherA = new MinTerm("0000");
+        Minterm anotherA = new Minterm("0000");
         assertTrue(minTermA.isSame(anotherA));
     }
 
@@ -34,39 +34,39 @@ public class MinTermTest {
 
 
     @Test
-    void testIsSameThrowsExceptionWhenLengthMinTermsMismatched() {
-        MinTerm twoChars = new MinTerm("00");
+    void testIsSameThrowsExceptionWhenLengthMintermsMismatched() {
+        Minterm twoChars = new Minterm("00");
         assertThrows(IllegalArgumentException.class, () -> {minTermA.isSame(twoChars);});
     }
 
     @Test
-    void testNumberOfDifferencesBetweenMinTermsIs1() {
-        MinTerm a = new MinTerm("0000");
-        MinTerm b = new MinTerm("0001");
-        int numberOfDifferences = a.numberOfDifferencesBetweenMinTerms(b);
+    void testNumberOfDifferencesBetweenMintermsIs1() {
+        Minterm a = new Minterm("0000");
+        Minterm b = new Minterm("0001");
+        int numberOfDifferences = a.numberOfDifferencesBetweenMinterms(b);
         assertEquals(1, numberOfDifferences);
     }
 
     @Test
-    void testNumberOfDifferencesBetweenMinTermsIs3(){
-        MinTerm a = new MinTerm("0000");
-        MinTerm b = new MinTerm("0111");
+    void testNumberOfDifferencesBetweenMintermsIs3(){
+        Minterm a = new Minterm("0000");
+        Minterm b = new Minterm("0111");
 
-        assertEquals(3, a.numberOfDifferencesBetweenMinTerms(b));
+        assertEquals(3, a.numberOfDifferencesBetweenMinterms(b));
     }
 
     @Test
-    void testNumberOfDifferencesBetweenMinTermsThrowsException(){
-        MinTerm twoChars = new MinTerm("00");
-        assertThrows(IllegalArgumentException.class, () -> {minTermA.numberOfDifferencesBetweenMinTerms(twoChars);});
+    void testNumberOfDifferencesBetweenMintermsThrowsException(){
+        Minterm twoChars = new Minterm("00");
+        assertThrows(IllegalArgumentException.class, () -> {minTermA.numberOfDifferencesBetweenMinterms(twoChars);});
     }
 
     @Test
     void testCombine(){
-        MinTerm a = new MinTerm("0111");
-        MinTerm b = new MinTerm("1111");
+        Minterm a = new Minterm("0111");
+        Minterm b = new Minterm("1111");
 
-        assertEquals("_111", MinTerm.combine(a, b).toString());
+        assertEquals("_111", Minterm.combine(a, b).toString());
     }
 
 }

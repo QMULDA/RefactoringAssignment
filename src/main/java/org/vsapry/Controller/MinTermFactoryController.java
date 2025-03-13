@@ -1,18 +1,18 @@
 package org.vsapry.Controller;
 
-import org.vsapry.Model.BitFactories.FiveBitMinTermFactory;
-import org.vsapry.Model.BitFactories.FourBitMinTermFactory;
-import org.vsapry.Model.BitFactories.MinTermFactory;
-import org.vsapry.Model.BitFactories.ThreeBitMinTermFactory;
+import org.vsapry.Model.BitFactories.FiveBitMintermFactory;
+import org.vsapry.Model.BitFactories.FourBitMintermFactory;
+import org.vsapry.Model.BitFactories.MintermFactory;
+import org.vsapry.Model.BitFactories.ThreeBitMintermFactory;
 
 
-public class MinTermFactoryController {
+public class MintermFactoryController {
 
-    public static MinTermFactory getFactory(int bitCount) {
+    public static MintermFactory getFactory(int bitCount) {
         switch (bitCount) {
-            case 3: return new ThreeBitMinTermFactory();
-            case 4: return new FourBitMinTermFactory();
-            case 5: return new FiveBitMinTermFactory();
+            case 3: return new ThreeBitMintermFactory();
+            case 4: return new FourBitMintermFactory();
+            case 5: return new FiveBitMintermFactory();
             default: throw new IllegalArgumentException("Unsupported bit count: " + bitCount);
         }
     }
