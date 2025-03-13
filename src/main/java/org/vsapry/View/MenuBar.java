@@ -1,4 +1,4 @@
-package org.vsapry;
+package org.vsapry.View;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

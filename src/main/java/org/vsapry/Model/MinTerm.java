@@ -1,4 +1,4 @@
-package org.vsapry;
+package org.vsapry.Model;
 
 public class MinTerm {
 	// input data representation
@@ -10,7 +10,7 @@ public class MinTerm {
 	protected static final int SET = 1;
 	protected static final int ANY = -1;
 	// attribute
-	protected int count;
+	protected int numberOfCharsInMinTerm;
 	protected int[] term;
 
 	// constructing & reading
@@ -19,13 +19,13 @@ public class MinTerm {
 		for (int i = 0; i < str.length(); i++) {
 			switch (str.charAt(i)) {
 			case NOT_CH:
-				term[count++] = NOT;
+				term[numberOfCharsInMinTerm++] = NOT;
 				break;
 			case SET_CH:
-				term[count++] = SET;
+				term[numberOfCharsInMinTerm++] = SET;
 				break;
 			case ANY_CH:
-				term[count++] = ANY;
+				term[numberOfCharsInMinTerm++] = ANY;
 				break;
 			}
 		}
@@ -34,8 +34,8 @@ public class MinTerm {
 	// converted to string
 
 	public String toString() {
-		StringBuffer buf = new StringBuffer(count);
-		for (int i = 0; i < count; i++) {
+		StringBuffer buf = new StringBuffer(numberOfCharsInMinTerm);
+		for (int i = 0; i < numberOfCharsInMinTerm; i++) {
 			switch (term[i]) {
 			case NOT:
 				buf.append(NOT_CH);
@@ -53,10 +53,10 @@ public class MinTerm {
 
 	// comparing minterm
 
-	public boolean isSame(MinTerm a) throws ExceptionQuine {
-		if (count != a.count)
-			throw new ExceptionQuine("MinTerm::isSame()");
-		for (int i = 0; i < count; i++) {
+	public boolean isSame(MinTerm a) {
+		if (numberOfCharsInMinTerm != a.numberOfCharsInMinTerm)
+			throw new IllegalArgumentException("MinTerms need to be the same length of characters to compare");
+		for (int i = 0; i < numberOfCharsInMinTerm; i++) {
 			if (term[i] != a.term[i])
 				return false;
 
@@ -66,37 +66,22 @@ public class MinTerm {
 
 	// number of the difference
 
-	public int resolutionCount(MinTerm a) throws ExceptionQuine {
-		if (count != a.count)
-			throw new ExceptionQuine("MinTerm::resolutionCount()");
+	public int numberOfDifferencesBetweenMinTerms(MinTerm a){
+		if (numberOfCharsInMinTerm != a.numberOfCharsInMinTerm)
+			throw new IllegalArgumentException("MinTerms are differing lengths");
 		int resCount = 0;
-		for (int i = 0; i < count; i++) {
+		for (int i = 0; i < numberOfCharsInMinTerm; i++) {
 			if (term[i] != a.term[i])
 				resCount++;
 		}
 		return resCount;
 	}
 
-	// position of the first difference
-
-	public int resolutionPos(MinTerm a) throws ExceptionQuine {
-		if (count != a.count)
-			throw new ExceptionQuine("MinTerm::resoutionPos()");
-		for (int i = 0; i < count; i++) {
-			if (term[i] != a.term[i])
-				return i;
-		}
-
-		return -1;
-	}
-
 	// combining two minterms
 
-	public static MinTerm combine(MinTerm a, MinTerm b) throws ExceptionQuine {
-		if (a.count != b.count)
-			throw new ExceptionQuine("MinTerm::combine()");
-		StringBuffer buf = new StringBuffer(a.count);
-		for (int i = 0; i < a.count; i++) {
+	public static MinTerm combine(MinTerm a, MinTerm b) {
+		StringBuffer buf = new StringBuffer(a.numberOfCharsInMinTerm);
+		for (int i = 0; i < a.numberOfCharsInMinTerm; i++) {
 			if (a.term[i] != b.term[i])
 				buf.append(ANY_CH);
 			else

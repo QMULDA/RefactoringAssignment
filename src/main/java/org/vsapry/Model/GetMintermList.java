@@ -1,4 +1,4 @@
-package org.vsapry;
+package org.vsapry.Model;
 
 import java.util.Set;
 import java.util.TreeSet;

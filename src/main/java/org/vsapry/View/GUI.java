@@ -1,5 +1,8 @@
-package org.vsapry;
+package org.vsapry.View;
 
+
+import org.vsapry.Model.GetMintermList;
+import org.vsapry.Model.Quine;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -37,7 +40,7 @@ public class GUI extends JFrame {
 	static public int k=0;
 	static public Set<String> set;
 	public String temp; 
-	GetMintermList item = new GetMintermList(); 
+	GetMintermList item = new GetMintermList();
 
 	static public String dataThree(String input) {
 
@@ -236,7 +239,7 @@ public class GUI extends JFrame {
 					String temp1 = quine.toString();
 					
 					resultShow.setText(temp1);
-				} catch (ExceptionQuine e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
