@@ -86,8 +86,6 @@ public class GUI extends JFrame {
 	public GUI(MinTermListController controller) {
 		super("Quine McCluskey Prime Implicant Generator");
 		this.controller = controller;
-		GUI gui = new GUI(controller);
-		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setLayout(null); 
 
@@ -253,8 +251,9 @@ public class GUI extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		
-		
+
+		MinTermList mintermlist = new MinTermList();
+		MinTermListController controller = new MinTermListController(mintermlist);
 		
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -287,6 +286,7 @@ public class GUI extends JFrame {
 
 		}
 
-	
+		GUI gui = new GUI(controller);
+		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
