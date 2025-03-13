@@ -3,12 +3,9 @@ package org.vsapry.Model;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class GetMintermList {
+public class MinTermList {
+
 	static Set<String> set=new TreeSet<String>();
-	
-	@SuppressWarnings("unused")
-	private static 	String[] minList=new String[256];
-	int i = 0;
 	
 	public void setMinList(String x){
 	

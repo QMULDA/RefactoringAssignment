@@ -1,7 +1,7 @@
 package org.vsapry.View;
 
 
-import org.vsapry.Model.GetMintermList;
+import org.vsapry.Model.MinTermList;
 import org.vsapry.Model.Quine;
 
 import java.awt.Font;
@@ -40,7 +40,7 @@ public class GUI extends JFrame {
 	static public int k=0;
 	static public Set<String> set;
 	public String temp; 
-	GetMintermList item = new GetMintermList();
+	MinTermList item = new MinTermList();
 
 	static public String dataThree(String input) {
 
@@ -214,7 +214,7 @@ public class GUI extends JFrame {
 				Quine quine = new Quine();
 
 				
-				set = GetMintermList.getMin();
+				set = MinTermList.getMin();
 				@SuppressWarnings("unused")
 				int len = set.size();
 				try {
