@@ -1,92 +1,74 @@
 package org.vsapry.Model;
 
 public class MinTerm {
-	// input data representation
-	public static final char NOT_CH = '0';
-	public static final char SET_CH = '1';
-	public static final char ANY_CH = '_';
-	// internal data representation
-	protected static final int NOT = 0;
-	protected static final int SET = 1;
-	protected static final int ANY = -1;
-	// attribute
 	protected int numberOfCharsInMinTerm;
 	protected int[] term;
 
-	// constructing & reading
-	public MinTerm(String str) {
-		term = new int[str.length()];
-		for (int i = 0; i < str.length(); i++) {
-			switch (str.charAt(i)) {
-			case NOT_CH:
-				term[numberOfCharsInMinTerm++] = NOT;
+	public MinTerm(String binaryString) {
+		term = new int[binaryString.length()];
+		for (int i = 0; i < binaryString.length(); i++) {
+			switch (binaryString.charAt(i)) {
+			case '0':
+				term[numberOfCharsInMinTerm++] = 0;
 				break;
-			case SET_CH:
-				term[numberOfCharsInMinTerm++] = SET;
+			case '1':
+				term[numberOfCharsInMinTerm++] = 1;
 				break;
-			case ANY_CH:
-				term[numberOfCharsInMinTerm++] = ANY;
+			case '_':
+				term[numberOfCharsInMinTerm++] = -1;
 				break;
 			}
 		}
 	}
-
-	// converted to string
 
 	public String toString() {
-		StringBuffer buf = new StringBuffer(numberOfCharsInMinTerm);
+		StringBuilder minTermAsStringBuffer = new StringBuilder(numberOfCharsInMinTerm);
 		for (int i = 0; i < numberOfCharsInMinTerm; i++) {
 			switch (term[i]) {
-			case NOT:
-				buf.append(NOT_CH);
+			case 0:
+				minTermAsStringBuffer.append('0');
 				break;
-			case SET:
-				buf.append(SET_CH);
+			case 1:
+				minTermAsStringBuffer.append('1');
 				break;
-			case ANY:
-				buf.append(ANY_CH);
+			case -1:
+				minTermAsStringBuffer.append('_');
 				break;
 			}
 		}
-		return buf.toString();
+		return minTermAsStringBuffer.toString();
 	}
 
-	// comparing minterm
-
-	public boolean isSame(MinTerm a) {
-		if (numberOfCharsInMinTerm != a.numberOfCharsInMinTerm)
+	public boolean isSame(MinTerm minTerm) {
+		if (numberOfCharsInMinTerm != minTerm.numberOfCharsInMinTerm)
 			throw new IllegalArgumentException("MinTerms need to be the same length of characters to compare");
 		for (int i = 0; i < numberOfCharsInMinTerm; i++) {
-			if (term[i] != a.term[i])
+			if (term[i] != minTerm.term[i])
 				return false;
 
 		}
 		return true;
 	}
 
-	// number of the difference
-
-	public int numberOfDifferencesBetweenMinTerms(MinTerm a){
-		if (numberOfCharsInMinTerm != a.numberOfCharsInMinTerm)
+	public int numberOfDifferencesBetweenMinTerms(MinTerm minTerm){
+		if (numberOfCharsInMinTerm != minTerm.numberOfCharsInMinTerm)
 			throw new IllegalArgumentException("MinTerms are differing lengths");
-		int resCount = 0;
+		int numberOfDifferencesBetweenMinTerms = 0;
 		for (int i = 0; i < numberOfCharsInMinTerm; i++) {
-			if (term[i] != a.term[i])
-				resCount++;
+			if (term[i] != minTerm.term[i])
+				numberOfDifferencesBetweenMinTerms++;
 		}
-		return resCount;
+		return numberOfDifferencesBetweenMinTerms;
 	}
 
-	// combining two minterms
-
 	public static MinTerm combine(MinTerm a, MinTerm b) {
-		StringBuffer buf = new StringBuffer(a.numberOfCharsInMinTerm);
+		StringBuilder combinedTermsBuffer = new StringBuilder(a.numberOfCharsInMinTerm);
 		for (int i = 0; i < a.numberOfCharsInMinTerm; i++) {
 			if (a.term[i] != b.term[i])
-				buf.append(ANY_CH);
+				combinedTermsBuffer.append('_');
 			else
-				buf.append(a.toString().charAt(i));
+				combinedTermsBuffer.append(a.toString().charAt(i));
 		}
-		return new MinTerm(buf.toString());
+		return new MinTerm(combinedTermsBuffer.toString());
 	}
 }
