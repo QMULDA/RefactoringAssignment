@@ -1,6 +1,9 @@
 package org.vsapry.Model;
 
+import org.vsapry.Model.BitFactories.MintermFactory;
+
 import javax.naming.LimitExceededException;
+import java.util.Set;
 
 public class Quine {
 	protected static final int MAX_TERMS = 0xff;
@@ -14,16 +17,16 @@ public class Quine {
 	}
 
 	public String toString() {
-		StringBuilder minTermsBuffer = new StringBuilder();
+		StringBuilder mintermsBuffer = new StringBuilder();
 		for (int i = 0; i < numMintermsInTerm; i++) {
-			minTermsBuffer.append(terms[i]).append("\n");
+			mintermsBuffer.append(terms[i]).append("\n");
 		}
-		return minTermsBuffer.toString();
+		return mintermsBuffer.toString();
 	}
 
-	public boolean hasTerm(Minterm minTerm){
+	public boolean hasTerm(Minterm minterm){
 		for (int i = 0; i < numMintermsInTerm; i++) {
-			if (minTerm.isSame(terms[i]))
+			if (minterm.isSame(terms[i]))
 				return true;
 		}
 		return false;
@@ -64,5 +67,18 @@ public class Quine {
 				terms[numMintermsInTerm++] = reducedTerms[i];
 		}
 		return numberOfReductions;
+	}
+
+	public String parseMinterm(Set<String> setOfStringsToBeConvertedToMinterms, MintermFactory mintermFactory) throws LimitExceededException {
+		for (String stringToBeConvertedToMinterm : setOfStringsToBeConvertedToMinterms) {
+			this.addTerm(
+					mintermFactory.createMinterm(Integer.parseInt(stringToBeConvertedToMinterm))
+							.toString()
+			);
+			System.out.println(stringToBeConvertedToMinterm);
+		}
+
+		this.simplify();
+		return this.toString();
 	}
 }

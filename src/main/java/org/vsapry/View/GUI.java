@@ -9,8 +9,6 @@ import org.vsapry.Model.MintermList;
 import org.vsapry.Model.Quine;
 
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Set;
@@ -27,16 +25,14 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 public class GUI extends JFrame {
 
-    private JTextField minIn;
+    private JTextField mintermInput;
     private JTextArea resultShow;
 
-
-    static public int userIntegerInputForMintermValue =0;
 	static public Set<String> setOfStringsToBeConvertedToMinterms;
-	public String userStringInputForMintermValue;
+	public String stringInputForMintermValue;
 
 
-	public GUI(MintermListController minTermListController) {
+	public GUI(MintermListController mintermListController) {
 		super("Quine McCluskey Prime Implicant Generator");
 
         setLayout(null);
@@ -56,92 +52,46 @@ public class GUI extends JFrame {
 		minInput.setFont(new Font("Verdana", Font.BOLD, 14));
 		panel.add(minInput);
 
-		minIn = new JTextField();
-		minIn.setBounds(50, 140, 70, 30);
+		mintermInput = new JTextField();
+		mintermInput.setBounds(50, 140, 70, 30);
 
-		minIn.addKeyListener(new KeyListener() {
+		mintermInput.addKeyListener(new KeyListener() {
 
 			@Override
-			public void keyTyped(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
+			public void keyTyped(KeyEvent arg0) {}
 
 			@Override
 			public void keyReleased(KeyEvent arg0) {
-				int numberOfBits = MenuBar.bits;
+				String mintermInputText = mintermInput.getText();
+				System.out.println(mintermInputText);
 
-				System.out.println(minIn.getText());
-				String tmp = minIn.getText();
+				try {
+					int parsedValue = Integer.parseInt(mintermInputText);
 
-				
-				if (numberOfBits == 3) {
-					
-					try {
-						userIntegerInputForMintermValue = Integer.parseInt(tmp);
-					} catch (NumberFormatException e) {
-						userIntegerInputForMintermValue = -1;
+					guiUtils utils = new guiUtils();
+					boolean isValid = utils.validateInput(MenuBar.bits, parsedValue);
+
+					if (isValid) {
+						stringInputForMintermValue = mintermInputText;
 					}
 
-					if (userIntegerInputForMintermValue < 0 || userIntegerInputForMintermValue > 7) {
-						JOptionPane.showMessageDialog(null, "Number should be within 0 to 7\nPlease press Next and give your input again",
-								"Error", JOptionPane.ERROR_MESSAGE, null);
-					} else
-						userStringInputForMintermValue = minIn.getText();
+				} catch (NumberFormatException e) {
+					stringInputForMintermValue = null;
 				}
-				if (numberOfBits == 4) {
-					
-					try {
-						userIntegerInputForMintermValue = Integer.parseInt(tmp);
-					} catch (NumberFormatException e) {
-						userIntegerInputForMintermValue = -1;
-					}
-
-					if (userIntegerInputForMintermValue < 0 || userIntegerInputForMintermValue > 15) {
-						JOptionPane.showMessageDialog(null, "Number should be within 0 to 15\nPlease press Next and give your input again",
-								"Error", JOptionPane.ERROR_MESSAGE, null);
-					} else
-						userStringInputForMintermValue = minIn.getText();
-
-				}
-
-				if (numberOfBits == 5) {
-					
-					try {
-						userIntegerInputForMintermValue = Integer.parseInt(tmp);
-					} catch (NumberFormatException e) {
-						userIntegerInputForMintermValue = -1;
-					}
-
-					if (userIntegerInputForMintermValue < 0 || userIntegerInputForMintermValue > 31) {
-						JOptionPane.showMessageDialog(null, "Number should be within 0 to 31\nPlease press Next and give your input again",
-								"Error", JOptionPane.ERROR_MESSAGE, null);
-					} else
-						userStringInputForMintermValue = minIn.getText();
-
-				}
-
 			}
 
 			@Override
-			public void keyPressed(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
+			public void keyPressed(KeyEvent arg0) {}
 		});
-		panel.add(minIn);
+		panel.add(mintermInput);
 
-        JButton nextBt = new JButton("Next");
-		nextBt.setBounds(140, 140, 70, 30);
-		nextBt.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				minIn.setText("");
-				minTermListController.setMintermList(userStringInputForMintermValue);
-			}
-		});
-		panel.add(nextBt);
+        JButton nextButton = new JButton("Next");
+		nextButton.setBounds(140, 140, 70, 30);
+		nextButton.addActionListener(e -> {
+            mintermInput.setText("");
+            mintermListController.setMintermList(stringInputForMintermValue);
+        });
+		panel.add(nextButton);
 
 		
 		resultShow = new JTextArea();
@@ -151,38 +101,23 @@ public class GUI extends JFrame {
 
         JButton calculateButton = new JButton("Calculate");
 		calculateButton.setBounds(400, 250, 100, 50);
-		calculateButton.addActionListener(new ActionListener() {
+		calculateButton.addActionListener(arg0 -> {
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
+            Quine quine = new Quine();
+            QuineController quineController = new QuineController(quine);
+            MintermFactory mintermFactory = MintermFactoryController.getFactory(MenuBar.bits);
 
-				Quine quine = new Quine();
-				QuineController quineController = new QuineController(quine);
-				MintermFactory minTermFactory = MintermFactoryController.getFactory(MenuBar.bits);
+            setOfStringsToBeConvertedToMinterms = mintermListController.getMintermList();
 
-				setOfStringsToBeConvertedToMinterms = minTermListController.getMintermList();
+            try {
+				String primeImplicant = quineController.parseMinterm(setOfStringsToBeConvertedToMinterms, mintermFactory);
+                resultShow.setText(primeImplicant);
 
-				try {
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-					for (String stringToBeConvertedToMinterm : setOfStringsToBeConvertedToMinterms) {
-						quineController.addTerm(
-								minTermFactory.createMinterm(Integer.parseInt(stringToBeConvertedToMinterm))
-										.toString()
-						);
-						System.out.println(stringToBeConvertedToMinterm);
-					}
-
-					quineController.simplify();
-					String primeImplicant = quineController.toString();
-
-					resultShow.setText(primeImplicant);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-		});
+        });
 		panel.add(calculateButton);
 
 		setVisible(true); 
@@ -203,17 +138,15 @@ public class GUI extends JFrame {
 				}
 			}
 		} catch (Exception e) {
-
 			e.printStackTrace();
-
 		}
 		
 		
 		
-		String s = JOptionPane
+		String numBits = JOptionPane
 				.showInputDialog("Enter the boolean bits(3 to 5): ");
 		try {
-			MenuBar.bits= Integer.parseInt(s);
+			MenuBar.bits= Integer.parseInt(numBits);
 		} catch (NumberFormatException e) {
 
 			MenuBar.bits= 2;

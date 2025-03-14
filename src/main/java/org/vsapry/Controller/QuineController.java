@@ -1,8 +1,10 @@
 package org.vsapry.Controller;
 
+import org.vsapry.Model.BitFactories.MintermFactory;
 import org.vsapry.Model.Quine;
 
 import javax.naming.LimitExceededException;
+import java.util.Set;
 
 public class QuineController {
 
@@ -20,6 +22,10 @@ public class QuineController {
 
     public void simplify(){
         quine.simplify();
+    }
+    
+    public String parseMinterm(Set<String> setOfStringsToBeConvertedToMinterms, MintermFactory mintermFactory) throws LimitExceededException {
+        return quine.parseMinterm(setOfStringsToBeConvertedToMinterms, mintermFactory);
     }
 
 }
