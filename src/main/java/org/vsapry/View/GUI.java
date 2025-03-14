@@ -1,6 +1,7 @@
 package org.vsapry.View;
 
 
+import org.vsapry.Controller.GUIController;
 import org.vsapry.Controller.MintermFactoryController;
 import org.vsapry.Controller.MintermListController;
 import org.vsapry.Controller.QuineController;
@@ -34,6 +35,7 @@ public class GUI extends JFrame {
 
 	public GUI(MintermListController mintermListController) {
 		super("Quine McCluskey Prime Implicant Generator");
+		GUIController guiController = new GUIController();
 
         setLayout(null);
 
@@ -68,8 +70,7 @@ public class GUI extends JFrame {
 				try {
 					int parsedValue = Integer.parseInt(mintermInputText);
 
-					guiUtils utils = new guiUtils();
-					boolean isValid = utils.validateInput(MenuBar.bits, parsedValue);
+					boolean isValid = guiController.validateInput(MenuBar.bits, parsedValue);
 
 					if (isValid) {
 						stringInputForMintermValue = mintermInputText;

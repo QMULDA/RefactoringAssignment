@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.vsapry.View.guiUtils;
+import org.vsapry.Model.guiUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
 

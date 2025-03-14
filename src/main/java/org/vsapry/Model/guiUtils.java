@@ -1,4 +1,4 @@
-package org.vsapry.View;
+package org.vsapry.Model;
 
 import javax.swing.*;
 
