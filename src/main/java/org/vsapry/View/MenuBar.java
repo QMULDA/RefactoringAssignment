@@ -32,41 +32,28 @@ public class MenuBar extends JMenuBar {
 
 		JMenuItem newMenuItem = new JMenuItem("New  Ctrl+N", KeyEvent.VK_N);
 		fileMenu.add(newMenuItem);
-		newMenuItem.addActionListener(new ActionListener() {
-			
+		newMenuItem.addActionListener(arg0 -> {
 
-			public void actionPerformed(ActionEvent arg0) {
+            if(GUI.setOfStringsToBeConvertedToMinterms !=null)GUI.setOfStringsToBeConvertedToMinterms.clear();
 
-				if(GUI.setOfStringsToBeConvertedToMinterms !=null)GUI.setOfStringsToBeConvertedToMinterms.clear();
-				
-				String s = JOptionPane
-						.showInputDialog("Enter the boolean bits(3 to 5): ");
-				try {
-					
-					bits = Integer.parseInt(s);
-					
-				} catch (NumberFormatException e) {
+            String s = JOptionPane.showInputDialog("Enter the boolean bits(3 to 5): ");
+            try {
+                bits = Integer.parseInt(s);
+            } catch (NumberFormatException e) {
+                bits=2;
+            }
 
-					bits=2;
-				}
-				
-				if(bits<3||bits>5){
-					JOptionPane.showMessageDialog(null,
-							"Wrong input. Press File and then NEW", "Error",
-							JOptionPane.ERROR_MESSAGE, null);
+            if(bits<3||bits>5){
+                JOptionPane.showMessageDialog(null,
+                        "Wrong input. Press File and then NEW", "Error",
+                        JOptionPane.ERROR_MESSAGE, null);
+            }
 
-				}
-				
-			}
-		});
+        });
 
 		JMenuItem exit = new JMenuItem("Exit  Alt+F4", KeyEvent.VK_N);
 		fileMenu.add(exit);
-		exit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
-			}
-		});
+		exit.addActionListener(arg0 -> System.exit(0));
 
 		JMenu help = new JMenu("Help");
 		help.setMnemonic(KeyEvent.VK_F);
@@ -75,48 +62,31 @@ public class MenuBar extends JMenuBar {
 		JMenuItem objective = new JMenuItem("About Quine McCluskey Algorithm",
 				KeyEvent.VK_N);
 		help.add(objective);
-		objective.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, MenuBar.this.objective,
-						"Quine McCluskey Prime Implicant Generator",
-						JOptionPane.INFORMATION_MESSAGE);
-			}
-		});
+		objective.addActionListener(arg0 -> JOptionPane.showMessageDialog(null, MenuBar.this.objective,
+                "Quine McCluskey Prime Implicant Generator",
+                JOptionPane.INFORMATION_MESSAGE));
 
 		JMenu authors = new JMenu("About...");
 		authors.setMnemonic(KeyEvent.VK_F);
 		add(authors);
 
-		JMenuItem jd1 = new JMenuItem("Developer 1", KeyEvent.VK_N);
-		authors.add(jd1);
-		jd1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		JMenuItem developerOneMenuItem = new JMenuItem("Developer 1", KeyEvent.VK_N);
+		authors.add(developerOneMenuItem);
+		developerOneMenuItem.addActionListener(arg0 -> JOptionPane.showMessageDialog(null, developer1,
+                "Quine McCluskey Prime Implicant Generator",
+                JOptionPane.INFORMATION_MESSAGE));
 
-				JOptionPane.showMessageDialog(null, developer1,
-						"Quine McCluskey Prime Implicant Generator",
-						JOptionPane.INFORMATION_MESSAGE);
-			}
-		});
+		JMenuItem developerTwoMenuItem = new JMenuItem("Developer 2", KeyEvent.VK_N);
+		authors.add(developerTwoMenuItem);
+		developerTwoMenuItem.addActionListener(arg0 -> JOptionPane.showMessageDialog(null, developer2,
+                "Quine McCluskey Prime Implicant Generator",
+                JOptionPane.INFORMATION_MESSAGE));
 
-		JMenuItem jd2 = new JMenuItem("Developer 2", KeyEvent.VK_N);
-		authors.add(jd2);
-		jd2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, developer2,
-						"Quine McCluskey Prime Implicant Generator",
-						JOptionPane.INFORMATION_MESSAGE);
-			}
-		});
-
-		JMenuItem jd3 = new JMenuItem("Developer 3", KeyEvent.VK_N);
-		authors.add(jd3);
-		jd3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, developer3,
-						"Quine McCluskey Prime Implicant Generator",
-						JOptionPane.INFORMATION_MESSAGE);
-			}
-		});
+		JMenuItem developerThreeMenuItem = new JMenuItem("Developer 3", KeyEvent.VK_N);
+		authors.add(developerThreeMenuItem);
+		developerThreeMenuItem.addActionListener(arg0 -> JOptionPane.showMessageDialog(null, developer3,
+                "Quine McCluskey Prime Implicant Generator",
+                JOptionPane.INFORMATION_MESSAGE));
 
 	}
 
