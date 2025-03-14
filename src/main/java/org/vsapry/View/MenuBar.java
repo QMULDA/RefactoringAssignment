@@ -1,18 +1,15 @@
 package org.vsapry.View;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-
 import javax.swing.*;
 
 public class MenuBar extends JMenuBar {
 	public static int bits;
 
-	private String developer1 = "Jane Smith";
-	private String developer2 = "John Doe";
-	private String developer3 = "Ashok Kumar";
-	private String objective = """
+	private final String developer1 = "Jane Smith";
+	private final String developer2 = "John Doe";
+	private final String developer3 = "Ashok Kumar";
+	private final String objective = """
             The Quine McCluskey algorithm (or the method of prime implicants) \
             
             is a method used for minimization of boolean functions which was developed by W.V. \
