@@ -5,7 +5,7 @@ import javax.swing.*;
 public class guiUtils {
 
     public boolean validateInput(int numBits, int intInputForMintermValue) {
-        int maxAllowed = (1 << numBits) - 1;
+        int maxAllowed = (int) (Math.pow(2,numBits) - 1);
 
         if (intInputForMintermValue < 0 || intInputForMintermValue > maxAllowed) {
             JOptionPane.showMessageDialog(
