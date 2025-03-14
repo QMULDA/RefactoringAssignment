@@ -6,37 +6,37 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MintermTest {
 
-    private Minterm minTermA;
-    private Minterm minTermB;
+    private Minterm mintermA;
+    private Minterm mintermB;
 
     @BeforeEach
     void setUp() {
-        minTermA = new Minterm("0000");
-        minTermB = new Minterm("1111");
+        mintermA = new Minterm("0000");
+        mintermB = new Minterm("1111");
     }
 
     @Test
     void testIntegersToString() {
-        assertEquals("0000", minTermA.toString());
-        assertEquals("1111", minTermB.toString());
+        assertEquals("0000", mintermA.toString());
+        assertEquals("1111", mintermB.toString());
     }
 
     @Test
     void testIsSameTrue() {
         Minterm anotherA = new Minterm("0000");
-        assertTrue(minTermA.isSame(anotherA));
+        assertTrue(mintermA.isSame(anotherA));
     }
 
     @Test
     void testIsSameFalse() {
-        assertFalse(minTermA.isSame(minTermB));
+        assertFalse(mintermA.isSame(mintermB));
     }
 
 
     @Test
     void testIsSameThrowsExceptionWhenLengthMintermsMismatched() {
         Minterm twoChars = new Minterm("00");
-        assertThrows(IllegalArgumentException.class, () -> {minTermA.isSame(twoChars);});
+        assertThrows(IllegalArgumentException.class, () -> {mintermA.isSame(twoChars);});
     }
 
     @Test
@@ -58,7 +58,7 @@ public class MintermTest {
     @Test
     void testNumberOfDifferencesBetweenMintermsThrowsException(){
         Minterm twoChars = new Minterm("00");
-        assertThrows(IllegalArgumentException.class, () -> {minTermA.numberOfDifferencesBetweenMinterms(twoChars);});
+        assertThrows(IllegalArgumentException.class, () -> {mintermA.numberOfDifferencesBetweenMinterms(twoChars);});
     }
 
     @Test

@@ -6,18 +6,18 @@
 
     public class MintermListController {
 
-        private MintermList minTermList;
+        private MintermList mintermList;
 
-        public MintermListController(MintermList minTermList) {
-            this.minTermList = minTermList;
+        public MintermListController(MintermList mintermList) {
+            this.mintermList = mintermList;
         }
 
         public Set<String> getMintermList(){
-            return minTermList.getMintermList();
+            return mintermList.getMintermList();
         }
 
         public void setMintermList(String userStringInputForMintermValue){
-            minTermList.setMintermList(userStringInputForMintermValue);
+            mintermList.setMintermList(userStringInputForMintermValue);
         }
 
 

@@ -22,40 +22,40 @@ public class Minterm {
 	}
 
 	public String toString() {
-		StringBuilder minTermAsStringBuffer = new StringBuilder(numberOfCharsInMinterm);
+		StringBuilder mintermAsStringBuffer = new StringBuilder(numberOfCharsInMinterm);
 		for (int i = 0; i < numberOfCharsInMinterm; i++) {
 			switch (term[i]) {
 			case 0:
-				minTermAsStringBuffer.append('0');
+				mintermAsStringBuffer.append('0');
 				break;
 			case 1:
-				minTermAsStringBuffer.append('1');
+				mintermAsStringBuffer.append('1');
 				break;
 			case -1:
-				minTermAsStringBuffer.append('_');
+				mintermAsStringBuffer.append('_');
 				break;
 			}
 		}
-		return minTermAsStringBuffer.toString();
+		return mintermAsStringBuffer.toString();
 	}
 
-	public boolean isSame(Minterm minTerm) {
-		if (numberOfCharsInMinterm != minTerm.numberOfCharsInMinterm)
+	public boolean isSame(Minterm minterm) {
+		if (numberOfCharsInMinterm != minterm.numberOfCharsInMinterm)
 			throw new IllegalArgumentException("Minterms need to be the same length of characters to compare");
 		for (int i = 0; i < numberOfCharsInMinterm; i++) {
-			if (term[i] != minTerm.term[i])
+			if (term[i] != minterm.term[i])
 				return false;
 
 		}
 		return true;
 	}
 
-	public int numberOfDifferencesBetweenMinterms(Minterm minTerm){
-		if (numberOfCharsInMinterm != minTerm.numberOfCharsInMinterm)
+	public int numberOfDifferencesBetweenMinterms(Minterm minterm){
+		if (numberOfCharsInMinterm != minterm.numberOfCharsInMinterm)
 			throw new IllegalArgumentException("Minterms are differing lengths");
 		int numberOfDifferencesBetweenMinterms = 0;
 		for (int i = 0; i < numberOfCharsInMinterm; i++) {
-			if (term[i] != minTerm.term[i])
+			if (term[i] != minterm.term[i])
 				numberOfDifferencesBetweenMinterms++;
 		}
 		return numberOfDifferencesBetweenMinterms;

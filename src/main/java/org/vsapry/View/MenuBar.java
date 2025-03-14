@@ -33,9 +33,9 @@ public class MenuBar extends JMenuBar {
 
             if(GUI.setOfStringsToBeConvertedToMinterms !=null)GUI.setOfStringsToBeConvertedToMinterms.clear();
 
-            String s = JOptionPane.showInputDialog("Enter the boolean bits(3 to 5): ");
+            String numberOfBits = JOptionPane.showInputDialog("Enter the boolean bits(3 to 5): ");
             try {
-                bits = Integer.parseInt(s);
+                bits = Integer.parseInt(numberOfBits);
             } catch (NumberFormatException e) {
                 bits=2;
             }
